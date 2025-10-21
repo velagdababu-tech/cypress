@@ -1,21 +1,20 @@
-name: Run Specific Cypress Test
+name: Run Specific Cypress Test with Allure
 
-# Trigger manually or on push
 on:
-  workflow_dispatch:   # allows manual trigger
+  workflow_dispatch:       # manual trigger
   push:
-    branches: [main]  # optional, runs on push to main
+    branches: [main]      # optional, run on push to main
 
 jobs:
   run-specific-test:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
-      - name: Checkout code
+      # 1️⃣ Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js (compatible with Cypress 15.5.0)
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,25 +24,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Run your specific Cypress test file with mochawesome reporter
-      - name: Run Cypress Specific Test
-        run: npx cypress run --spec "cypress/e2e/test1.cy.js" --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=true,json=true
+      # 4️⃣ Run specific Cypress test file
+      - name: Run Cypress Test
+        run: npx cypress run --spec "cypress/e2e/test1.cy.js"
 
-      # 5️⃣ Upload Cypress HTML/JSON reports as artifacts
-      - name: Upload Test Report
+      # 5️⃣ Generate Allure Report
+      - name: Generate Allure Report
+        run: npx allure generate cypress/allure-results --clean -o cypress/allure-report
+
+      # 6️⃣ Upload Allure Report as Artifact
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-report
-          path: cypress/reports
+          name: allure-report
+          path: cypress/allure-report
 
-      # 6️⃣ Upload Cypress Screenshots
+      # 7️⃣ Upload Screenshots (optional)
       - name: Upload Screenshots
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
           path: cypress/screenshots
 
-      # 7️⃣ Upload Cypress Videos
+      # 8️⃣ Upload Videos (optional)
       - name: Upload Videos
         uses: actions/upload-artifact@v4
         with:
