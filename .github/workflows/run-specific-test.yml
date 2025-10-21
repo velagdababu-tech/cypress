@@ -1,0 +1,30 @@
+name: Run Specific Cypress Test
+
+# Trigger manually or on push (optional)
+on:
+  workflow_dispatch:   # allows manual trigger
+  push:
+    branches: [main]  # optional, runs on push to main
+
+jobs:
+  run-specific-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Node.js (compatible with Cypress 15.5.0)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4️⃣ Run your specific Cypress test file
+      - name: Run Cypress Specific Test
+        run: npx cypress run --spec "cypress/e2e/test1.cy.js"
