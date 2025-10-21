@@ -1,0 +1,30 @@
+name: Cypress CI
+
+on:
+  push:
+    branches: [main]      # run on push to main
+  pull_request:
+    branches: [main]      # run on PR to main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repo
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18   # or your Node.js version
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm ci          # uses package-lock.json for exact versions
+
+      # 4️⃣ Run Cypress tests
+      - name: Run Cypress tests
+        run: npx cypress run
