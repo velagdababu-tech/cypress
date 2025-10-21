@@ -1,6 +1,6 @@
 name: Run Specific Cypress Test
 
-# Trigger manually or on push (optional)
+# Trigger manually or on push
 on:
   workflow_dispatch:   # allows manual trigger
   push:
@@ -25,6 +25,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Run your specific Cypress test file
+      # 4️⃣ Run your specific Cypress test file with mochawesome reporter
       - name: Run Cypress Specific Test
-        run: npx cypress run --spec "cypress/e2e/test1.cy.js"
+        run: npx cypress run --spec "cypress/e2e/test1.cy.js" --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=true,json=true
+
+      # 5️⃣ Upload Cypress HTML/JSON reports as artifacts
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report
+          path: cypress/reports
+
+      # 6️⃣ Upload Cypress Screenshots
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      # 7️⃣ Upload Cypress Videos
+      - name: Upload Videos
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
