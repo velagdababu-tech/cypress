@@ -1,11 +1,8 @@
-/// <reference types="cypress" />
-
-// Welcome to Cypress!
-
-describe('example to-do app', () => {
-
-  it('displays two todo items by default', () => {
-    cy.visit('https://www.google.com/');
-    cy.title().should('eq', 'Google');
-  })
-})
+describe('Google Search', () => {
+  it('should have correct title', () => {
+    cy.allure().label('feature', 'Google Search');
+    cy.visit('/');
+    cy.title().should('include', 'Google');
+    cy.allure().step('Checked the page title');
+  });
+});
