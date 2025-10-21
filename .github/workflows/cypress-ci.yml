@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js
+      # 2️⃣ Setup Node.js (downgrade to 18.16 for Cypress compatibility)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18   # or your Node.js version
+          node-version: 18.16
 
       # 3️⃣ Install dependencies
       - name: Install dependencies
