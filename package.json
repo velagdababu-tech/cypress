@@ -1,10 +1,13 @@
 {
   "name": "cypress",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000c\u0000y\u0000p\u0000r\u0000e\u0000s\u0000s\u0000\r\u0000 \u0000",
+  "description": "Cypress automation project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm install wait-on@8.0.5 --save-dev"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,7 @@
     "@shelex/cypress-allure-plugin": "^2.41.2",
     "allure-commandline": "^2.34.1",
     "cypress": "^15.5.0",
-    "mochawesome": "^7.1.4"
+    "mochawesome": "^7.1.4",
+    "wait-on": "^8.0.5"
   }
 }

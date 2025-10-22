@@ -4,7 +4,7 @@ describe("Google Search", () => {
     cy.title().should("include", "Google");
   });
 
-  it("should have correct title", () => {
+  it("should have valid locator", () => {
     cy.visit("/");
     cy.get('[class="lnXdpd"]').should("exist");
   });
