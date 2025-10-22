@@ -1,0 +1,62 @@
+name: Scheduled CI/CD Test Run
+
+on:
+  # 🕒 Run automatically every day at 2:00 PM IST (8:30 AM UTC)
+  schedule:
+    - cron: '30 8 * * *'
+  # ▶️ Allow manual trigger from GitHub Actions
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    name: Run Cypress Tests
+
+    steps:
+      # 1️⃣ Checkout the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3️⃣ Install all dependencies
+      - name: Install Dependencies
+        run: npm install
+
+
+      # 4️⃣ Start your Node.js app
+      - name: Start Application Server
+        run: |
+          nohup npm run start &
+          npx wait-on http://localhost:3000
+
+      # 5️⃣ Run specific Cypress test file
+      - name: Run Cypress Tests
+        run: npx cypress run --spec "cypress/e2e/test1.cy.js"
+
+        
+      # 6️⃣ Generate Allure Report
+      - name: Generate Allure Report
+        run: npx allure generate cypress/allure-results --clean -o cypress/allure-report
+
+      # 7️⃣ Upload Allure Report as Artifact
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: cypress/allure-report
+
+      # 8 Upload test reports (optional but helpful)
+      - name: Upload Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            cypress/reports
+            cypress/videos
+            cypress/screenshots
