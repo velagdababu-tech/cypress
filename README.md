@@ -120,11 +120,11 @@ cypress run --spec "cypress/e2e/examples/actions.cy.js,cypress/e2e/examples/file
 ```
     
 Opens the Cypress App.
-  
+
  ```bash
 cypress open
-
-
+```
+  
 Allure Report Installation
 
 ```bash
@@ -137,4 +137,5 @@ Generate and open Allure report:
 npx allure generate allure-results --clean -o allure-report
 npx allure open allure-report
 ```
+
 
