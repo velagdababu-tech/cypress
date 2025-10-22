@@ -118,14 +118,12 @@ Run tests specifying multiple test files to run.
 ```bash
 cypress run --spec "cypress/e2e/examples/actions.cy.js,cypress/e2e/examples/files.cy.js"
 ```
-  
-cypress open
-  
+    
 Opens the Cypress App.
   
  ```bash
-
 cypress open
+
 
 Allure Report Installation
 
@@ -135,5 +133,8 @@ npm install --save-dev cypress @shelex/cypress-allure-plugin allure-commandline
 
 Generate and open Allure report:
 
+```bash
 npx allure generate allure-results --clean -o allure-report
 npx allure open allure-report
+```
+
