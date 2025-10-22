@@ -1,4 +1,4 @@
-name: Scheduled CI/CD Test Run
+name: Scheduled CI/CD Test Run For Specific File
 
 on:
   # 🕒 Run automatically every day at 2:00 PM IST (8:30 AM UTC)
