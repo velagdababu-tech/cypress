@@ -2,9 +2,9 @@ name: Scheduled CI/CD Test Run
 
 on:
   # 🕒 Run automatically every day at 2:00 PM IST (8:30 AM UTC)
-  schedule:
-    - cron: '30 12 * * *'
-  # ▶️ Allow manual trigger from GitHub Actions
+  # schedule:
+  #   - cron: '30 12 * * *'
+  # # ▶️ Allow manual trigger from GitHub Actions
   workflow_dispatch:
 
 jobs:
